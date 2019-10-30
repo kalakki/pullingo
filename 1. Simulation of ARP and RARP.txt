@@ -1,0 +1,369 @@
+gr1.java:
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+import java.net.*;
+class gr1{
+	public static void main(String[] args) throws Exception
+	{
+        try{
+		int[] x = new int[4]; 
+		int[] flag= new int[100];
+        int[] flag1= new int[100];
+        List<String> arr1 = new ArrayList<String>();
+        List<String> arr = new ArrayList<String>();
+		String l="",str="",strr="",wq="",ii="";
+		Random t = new Random(); 
+		int i,j,f,count=0,g=0,ch,k;
+		 //System.out.println("Logical Address");
+		for (i=0;i<10;i++) {
+			String ip1 = Integer.toString (t.nextInt(255)) ;
+            String ip2 = Integer.toString(t.nextInt(255) );
+            String ip3 = Integer.toString(t.nextInt(255)) ;
+            String ip4 = Integer.toString(t.nextInt(255));
+            String ip=ip1+"."+ip2+"."+ip3+"."+ip4;
+            arr.add(ip);
+            //System.out.println(arr.get(i));
+            String p1 = Integer.toHexString(t.nextInt(255)) ;
+                 String p2 = Integer.toHexString(t.nextInt(255) );
+                String p3 = Integer.toHexString(t.nextInt(255)) ;
+                String p4 = Integer.toHexString(t.nextInt(255));
+                String p=p1+":"+p2+":"+p3+":"+p4;
+                arr1.add(p);
+                //System.out.println(arr1.get(i)+"\n"); 
+    }
+          FileWriter fw = new FileWriter("file.txt");
+          FileWriter fw1 = new FileWriter("file1.txt");
+          flag[0]=1;
+          flag1[0]=1;
+          for(i=1;i<arr.size();i++)
+          {
+            flag[i]=0;
+            flag1[i]=0;
+          }
+                for (i = 0; i < arr.size(); i++) 
+                {
+                    fw.write(arr.get(i)+"\n");
+                    fw1.write(arr1.get(i)+"\n");
+                }
+fw.close();
+                fw1.close();
+    //System.out.println("Physical Address");
+     	System.out.println("Enter choice \n 1)Socket ARP \n 2)Socket RARP \n 3)Exit");
+     	Scanner o=new Scanner(System.in);
+     	ch=o.nextInt();
+        switch(ch)
+        {
+    case 1:{
+            File zz= new File("file2.txt");
+               FileWriter fw2 = new FileWriter(zz);
+               File yy =new File("file3.txt");
+               FileWriter fw3 = new FileWriter(yy);
+               File xx= new File("C:/Users/intel/Desktop/overview/networks/file.txt");
+               FileReader fr=new FileReader(xx);
+                BufferedReader br=new BufferedReader(fr);
+                File vv= new File("C:/Users/intel/Desktop/overview/networks/file1.txt");
+                FileReader fr1=new FileReader(vv);
+                BufferedReader br1=new BufferedReader(fr1);
+                ServerSocket s = new ServerSocket(1565);
+                Socket obj = s.accept();
+                    DataInputStream din = new DataInputStream(obj.getInputStream());
+                    DataOutputStream dout = new DataOutputStream(obj.getOutputStream());
+                    f=0;
+                    String ab=br.readLine();
+                    String cd=br1.readLine();
+                    String bc="00:00:00:00";
+                    dout.writeBytes(ch+"\n");
+                   dout.writeBytes(ab+"\n");
+                    dout.writeBytes(cd+"\n");  
+                for(i=0;i<5;i++)
+                {
+            br.readLine();
+            br1.readLine();
+       }
+       str=br.readLine();
+       dout.writeBytes(str+"\n"); 
+       strr=br1.readLine();
+        dout.writeBytes(strr+"\n");
+        fw2.write(ab+"\n");
+        fw2.write(str+"\n");
+        fw3.write(cd+"\n");
+        fw3.write(strr+"\n");
+        System.out.println("IP:"+ab+"\nMAC:"+cd);
+        System.out.println("\n\nServer broadcast the ARP Request Packet");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("     Ethernet(Hardware Type)                 |        IPv4(Protocol Type)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("6(Hardware Length)   |   4(Protocol Length)  |      1 Request (Operation)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Hardware(MAC) address               "+cd);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Protocol(IP) address                "+ab);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Hardware(MAC) address               "+bc);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Protocol(IP) address                "+str);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("\n\n\n\n\nServer received the ARP Reply Packet from the Client");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("     Ethernet(Hardware Type)                  |       IPv4(Protocol Type)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("6(Hardware Length)   |   4(Protocol Length)   |       2 Reply (Operation)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Hardware(MAC) address               "+strr);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Protocol(IP) address                "+str);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Hardware(MAC) address               "+cd);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Protocol(IP) address                "+ab);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("I got the Client's MAC address!!!!!!!!!!!!");
+        obj.close();
+        fw2.close();
+        fw3.close();
+        fr.close();
+        fr1.close();
+        File uu= new File("file4.txt");
+        FileWriter fw4 = new FileWriter(uu);
+        File ww= new File("file5.txt");
+        FileWriter fw5 = new FileWriter(ww);
+        FileReader frr=new FileReader("file.txt");
+        BufferedReader brr=new BufferedReader(frr);
+        FileReader frr1=new FileReader("file1.txt");
+        BufferedReader brr1=new BufferedReader(frr1);
+        brr.readLine();
+        brr1.readLine();
+        for(i=0;i<8;i++)
+        {
+             wq=brr.readLine();
+            ii=brr1.readLine();
+           
+            if(wq.equals(str))
+            {
+                brr.readLine();
+                brr1.readLine();
+            }
+            else
+            {
+            fw4.write(wq+"\n");
+            fw5.write(ii+"\n");
+        }
+    }
+    frr.close();
+    frr1.close();
+    fw4.close();
+        fw5.close();
+    xx.delete();
+    File ff=new File("file.txt");
+    uu.renameTo(ff);
+   File ff1=new File("file1.txt");
+    vv.delete();
+  ww.renameTo(ff1);
+  break;
+      }
+        case 2:
+        {
+            File zz= new File("file2.txt");
+               FileWriter fw2 = new FileWriter(zz);
+               File yy =new File("file3.txt");
+               FileWriter fw3 = new FileWriter(yy);
+               File xx= new File("C:/Users/intel/Desktop/overview/networks/file.txt");
+               FileReader fr=new FileReader(xx);
+                BufferedReader br=new BufferedReader(fr);
+                File vv= new File("C:/Users/intel/Desktop/overview/networks/file1.txt");
+                FileReader fr1=new FileReader(vv);
+                BufferedReader br1=new BufferedReader(fr1);
+                ServerSocket s = new ServerSocket(1565);
+                Socket obj = s.accept();
+                    DataInputStream din = new DataInputStream(obj.getInputStream());
+                    DataOutputStream dout = new DataOutputStream(obj.getOutputStream());
+                    f=0;
+
+                    String ab=br.readLine();
+                    String cd=br1.readLine();
+                    String bc="00.00.00.00";
+                    dout.writeBytes(ch+"\n");
+                   dout.writeBytes(ab+"\n");
+                    dout.writeBytes(cd+"\n");  
+                for(i=0;i<5;i++)
+                {
+            br.readLine();
+            br1.readLine();
+       }
+       str=br.readLine();
+       dout.writeBytes(str+"\n"); 
+       strr=br1.readLine();
+        dout.writeBytes(strr+"\n");
+        fw2.write(ab+"\n");
+        fw2.write(str+"\n");
+        fw3.write(cd+"\n");
+        fw3.write(strr+"\n");
+        System.out.println("IP:"+ab+"\nMAC:"+cd);
+        System.out.println("\n\nServer received the RARP Request Packet from Client");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("     Ethernet(Hardware Type)                 |        IPv4(Protocol Type)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("6(Hardware Length)   |   4(Protocol Length)  |      1 Request (Operation)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Hardware(MAC) address               "+strr);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Protocol(IP) address                "+bc);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Hardware(MAC) address               "+cd);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Protocol(IP) address                "+ab);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("\n\n\n\n\nServer sends the RARP Reply Packet to the Client");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("     Ethernet(Hardware Type)                  |       IPv4(Protocol Type)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("6(Hardware Length)   |   4(Protocol Length)   |       2 Reply (Operation)");
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Hardware(MAC) address               "+cd);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Sender Protocol(IP) address                "+ab);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Hardware(MAC) address               "+strr);
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Target Protocol(IP) address                "+str);
+        System.out.println("-------------------------------------------------------------------------");
+        obj.close();
+         System.out.println("Your Request is Responded!!!!!!!!!!!!!");  
+        fw2.close();
+        fw3.close();
+        fr.close();
+        fr1.close();
+        File uu= new File("file4.txt");
+        FileWriter fw4 = new FileWriter(uu);
+        File ww= new File("file5.txt");
+        FileWriter fw5 = new FileWriter(ww);
+        FileReader frr=new FileReader("file.txt");
+        BufferedReader brr=new BufferedReader(frr);
+        FileReader frr1=new FileReader("file1.txt");
+        BufferedReader brr1=new BufferedReader(frr1);
+        brr.readLine();
+        brr1.readLine();
+        for(i=0;i<8;i++)
+        {
+             wq=brr.readLine();
+            ii=brr1.readLine();
+           
+            if(wq.equals(str))
+            {
+                brr.readLine();
+                brr1.readLine();
+            }
+            else
+            {
+            fw4.write(wq+"\n");
+            fw5.write(ii+"\n");
+        }
+    } frr.close();
+    frr1.close();
+    fw4.close();
+        fw5.close();
+    xx.delete();
+    File ff=new File("file.txt");
+    uu.renameTo(ff);
+   File ff1=new File("file1.txt");
+    vv.delete();
+  ww.renameTo(ff1);
+}
+     }
+
+}
+catch(Exception e)
+{
+    System.out.println(e);
+}
+}
+}
+Clientarp1.java
+import java.io.*;
+import java.util.*;
+import java.net.*;
+public class clientarp1{
+    public static void main(String args[]){
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            Socket sc = new Socket("127.0.0.1",1565);
+            DataInputStream din = new DataInputStream(sc.getInputStream());
+            DataOutputStream dout = new DataOutputStream(sc.getOutputStream());
+            String gg=din.readLine();
+            String xy=din.readLine();
+            String bc=din.readLine(); 
+            String str1=din.readLine();
+            String str=din.readLine();
+            String xx="00:00:00:00";
+            String yy="00.00.00.00";
+            if(gg.equals("1"))
+            {
+            System.out.println("IP:"+str1+"\nMAC:"+xx);
+            System.out.println("\n\nClient receives ARP Request Packet from Server");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("     Ethernet(Hardware Type)     		|   IPv4(Protocol Type)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("6(Hardware Length)   |   4(Protocol Length)     |   1 Request (Operation)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Hardware(MAC) address            "+bc);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Protocol(IP) address             "+xy);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Hardware(MAC) address            "+xx);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Protocol(IP) address             "+str1);
+        	System.out.println("-------------------------------------------------------------------------");
+            System.out.println("\n\n\n\n\nClient Sends ARP Reply Packet to Server");
+            System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("     Ethernet(Hardware Type)      		|   IPv4(Protocol Type)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("6(Hardware Length)   |   4(Protocol Length)     |     2 Reply (Operation)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Hardware(MAC) address            "+str);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Protocol(IP) address             "+str1);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Hardware(MAC) address            "+bc);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Protocol(IP) address             "+xy);
+        	System.out.println("-------------------------------------------------------------------------");
+            System.out.println("Your Request is Responded!!!!!!!!!!!!!");  
+
+           }
+           else
+           {
+           	System.out.println("IP:"+yy+"\nMAC:"+str);
+            System.out.println("\n\nClient Sends RARP Request Packet to Server");
+            System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("     Ethernet(Hardware Type)     		|   IPv4(Protocol Type)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("6(Hardware Length)   |   4(Protocol Length)     |   1 Request (Operation)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Hardware(MAC) address            "+str);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Protocol(IP) address             "+yy);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Hardware(MAC) address            "+bc);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Protocol(IP) address             "+xy);
+        	System.out.println("-------------------------------------------------------------------------");
+            System.out.println("\n\n\n\n\nClient receives RARP Reply Packet from Server");
+            System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("     Ethernet(Hardware Type)      		|   IPv4(Protocol Type)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("6(Hardware Length)   |   4(Protocol Length)     |     2 Reply (Operation)");
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Hardware(MAC) address            "+bc);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Sender Protocol(IP) address             "+xy);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Hardware(MAC) address            "+str);
+        	System.out.println("-------------------------------------------------------------------------");
+        	System.out.println("Target Protocol(IP) address             "+str1);
+        	System.out.println("-------------------------------------------------------------------------");
+            System.out.println("I got my IP address!!!!!!!!!!!!");
+           }
+            sc.close();
+        }catch(Exception e){
+            System.out.println(e);}}}

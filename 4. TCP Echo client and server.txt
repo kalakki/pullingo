@@ -1,0 +1,41 @@
+tcpechoserver1.java
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+import java.net.*;
+class tcpechoserver1
+{
+    public static void main(String args[]) throws IOException
+    {
+        ServerSocket s = new ServerSocket(156);
+        Socket obj = s.accept();
+        DataInputStream din = new DataInputStream(obj.getInputStream());
+        DataOutputStream dout = new DataOutputStream(obj.getOutputStream());
+        System.out.println("Server is Running...");
+           String str=din.readLine();
+            System.out.println("Client: " + str);
+            dout.writeBytes(str+"\n");
+        }
+    }
+tcpechoclient1.java
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+import java.net.*;
+class tcpechoclient1
+{
+    public static void main(String args[]) throws IOException
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        Socket sc = new Socket("127.0.0.1",156);
+        DataInputStream din = new DataInputStream(sc.getInputStream());
+        DataOutputStream dout = new DataOutputStream(sc.getOutputStream());
+        System.out.println("Client is Running... Type 'BYE' to Quit");
+            System.out.print("Client: ");
+            Scanner a=new Scanner(System.in);
+            String str=a.nextLine();
+            dout.writeBytes(str+"\n");
+            String str2=din.readLine();
+            System.out.println("Server: " + str2);
+        }
+    }

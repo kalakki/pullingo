@@ -1,0 +1,60 @@
+RemoteCalc.java
+
+import java.rmi.*;
+import java.rmi.server.*;
+public class RemoteCalc extends UnicastRemoteObject implements calinterface{
+RemoteCalc() throws RemoteException{
+super();}
+public float add(float a,float b){return a+b;}
+public float sub(float a,float b){return a-b;}
+public float mul(float a,float b){return a*b;}
+public float div(float a,float b){return a/b;}
+public float modx(float a,float b){return a%b;}}
+
+calinterface.java
+
+import java.rmi.*;
+public interface calinterface extends Remote{
+public float add(float a,float b)throws RemoteException;
+public float sub(float a,float b)throws RemoteException;
+public float mul(float a,float b)throws RemoteException;
+public float div(float a,float b)throws RemoteException;
+public float modx(float a,float b)throws RemoteException;}
+
+Server.java
+
+import java.rmi.*;
+import java.rmi.registry.*;
+public class Server{
+public static void main(String args[]){
+try{
+calinterface stub=new RemoteCalc();
+LocateRegistry.createRegistry(8000);
+Naming.rebind("rmi://localhost:8000/aaa",stub);
+System.out.println("Server is Running");}
+catch(Exception e){System.out.println(e);}}}
+
+Client.java
+
+import java.rmi.*;
+import java.util.*;
+public class Client{
+public static void main(String args[]){
+try{
+float a=0,b=0;int ch=0;
+Scanner sc=new Scanner(System.in);
+calinterface stub=(calinterface)Naming.lookup("rmi://localhost:8000/aaa");
+System.out.println("Enter arithmetic operation :\n1.Add\n2.Subtract\n3.Multiply\n4.Divide\n5.Mod\nEnter Choice: ");
+ch=sc.nextInt();
+System.out.println("Enter first number : ");
+a=sc.nextFloat();
+System.out.println("Enter Second number : ");
+b=sc.nextFloat();
+switch(ch){
+	case 1 :System.out.println(stub.add(a,b));break;
+	case 2 :System.out.println(stub.sub(a,b));break;
+	case 3 :System.out.println(stub.mul(a,b));break;
+	case 4 :System.out.println(stub.div(a,b));break;
+	case 5 :System.out.println(stub.modx(a,b));break;
+	default :System.out.println("Invalid Choice");}}
+catch(Exception e){System.out.println(e);}}}

@@ -1,0 +1,58 @@
+PROGRAM: 
+import java.net.InetAddress; 
+import java.net.*; 
+import java.net.NetworkInterface; 
+import java.net.UnknownHostException; 
+import java.util.*; 
+public class myip { 
+    public static void main(String args[]){ 
+        try { 
+         System.out.println("Dns server to resolve a given host name"); 
+         InetAddress host4 = InetAddress.getLocalHost(); 
+         System.out.println("LocalHost IP : "+host4.getHostAddress()+"\nLocalHost Name : "+host4.getHostName()); 
+            System.out.println("Enter the URL"); 
+            Scanner a=new Scanner(System.in); 
+         String b=a.nextLine(); 
+            InetAddress host2 = InetAddress.getByName(b); 
+            //InetAddress host5 = host2.getHostAddress(); 
+            String c=host2.getHostAddress(); 
+            System.out.println("Host IP : "+c+"\nHost Name : "+host2.getHostName()); 
+            System.out.println("List of Ip addresses:"); 
+            InetAddress[] host1 = InetAddress.getAllByName(b); 
+            for(InetAddress host:host1){ 
+             System.out.println(host.getHostAddress()); 
+            } 
+            char dd='.'; 
+            int count=0; 
+            for(int i=0;i<c.length();i++) 
+            { 
+             if(c.charAt(i)==dd) 
+             { 
+             count++; 
+             } 
+            } 
+            System.out.print("Length of the Address:"); 
+            if(count==3) 
+            { 
+             System.out.println("32-bit"); 
+             System.out.println("It is a IPV4 address"); 
+            } 
+            else if(count==5) 
+            { 
+             System.out.println("128-bit"); 
+             System.out.println("It is a IPV6 address"); 
+            } 
+            String arr=c.substring(0,c.indexOf('.')); 
+            int aa=Integer.parseInt(arr); 
+                if(aa>0 && aa<=127){ 
+             System.out.println("Class A Unicast Address");} 
+             else if(aa>127 && aa<=191){ 
+             System.out.println("Class B Unicast Address");} 
+             else if(aa>191 && aa<=223){ 
+             System.out.println("Class C Unicast Address");}  
+else if(aa>223 && aa<=239){ 
+             System.out.println("Class D Multicast Address");} 
+             else{ 
+             System.out.println("Class E Reserved Address");} 
+                    } catch (UnknownHostException ex) { 
+            ex.printStackTrace();}}} 
